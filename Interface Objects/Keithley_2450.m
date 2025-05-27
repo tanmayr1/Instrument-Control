@@ -54,14 +54,24 @@ classdef Keithley_2450 < handle
             obj.sendCommand(sprintf(':SOUR:CURR %g', current));
         end
 
-        function setCurrentLimit(obj, currentLimit)
+        function setCurrentCompLimit(obj, currentLimit)
             % Set current limit (compliance) when sourcing voltage
             obj.sendCommand(sprintf(':SENS:CURR:PROT %g', currentLimit));
         end
 
-        function setVoltageLimit(obj, voltageLimit)
+        function setVoltageCompLimit(obj, voltageLimit)
             % Set voltage limit (compliance) when sourcing current
             obj.sendCommand(sprintf(':SENS:VOLT:PROT %g', voltageLimit));
+        end
+
+        function setVoltageLimit(obj, voltageLimit)
+            % Set Max voltage limit
+            obj.sendCommand(sprintf(':SENS:VOLT:RANG %g', voltageLimit));
+        end
+
+        function setCurrentLimit(obj, currentLimit)
+            % Set Max current limit
+            obj.sendCommand(sprintf(':SENS:CURR:RANG %g', currentLimit));
         end
 
         function enableOutput(obj, enable)
